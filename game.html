@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeopardy!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+
+  <div id="screen-game" class="screen active">
+
+    <div class="top-bar">
+      <h1>Jeopardy!</h1>
+      <div class="room-badge" id="gameRoomCode">----</div>
+      <div class="top-bar-right">
+        <span id="myNameDisplay"></span>
+        <button class="btn btn-outline top-leave-btn" onclick="leaveGame()">← Leave</button>
+      </div>
+    </div>
+
+    <div class="game-layout">
+
+      <div class="main-area">
+
+        <div id="turn-banner" class="turn-banner"></div>
+
+        <div id="panel-board" class="game-panel active">
+          <div id="board-grid"></div>
+        </div>
+
+        <div id="panel-question" class="game-panel">
+          <div class="question-card">
+            <div class="question-meta">
+              <span id="q-category" class="q-cat"></span>
+              <span id="q-value" class="q-val"></span>
+            </div>
+            <div id="q-text" class="q-text"></div>
+            <div id="buzzer-status" class="buzzer-status"></div>
+            <button id="player-buzzer" class="buzzer-btn" onclick="playerBuzz()" style="display:none;">
+              BUZZ IN
+            </button>
+            <div id="judging-info" class="judging-buzzer-name" style="display:none;"></div>
+          </div>
+        </div>
+
+        <div id="panel-daily-double" class="game-panel">
+          <div class="dd-card">
+            <div class="dd-title">Daily Double!</div>
+            <div id="dd-category" class="dd-category"></div>
+            <div id="dd-waiting-msg" class="dd-waiting" style="display:none;">
+              Waiting for player to wager...
+            </div>
+            <div id="dd-wager-area" style="display:none;">
+              <p class="dd-hint">Place your wager</p>
+              <div class="dd-wager-row">
+                <input id="dd-wager-input" type="number" min="1" class="dd-wager-input" placeholder="$">
+                <button class="btn btn-gold dd-wager-btn" onclick="submitWager()">Wager</button>
+              </div>
+            </div>
+            <div id="dd-question-area" style="display:none;">
+              <div id="dd-question-text" class="q-text dd-q-text"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-gameover" class="game-panel">
+          <div class="gameover-card">
+            <div class="gameover-title">Game Over</div>
+            <div id="gameover-scores" class="gameover-scores"></div>
+            <button class="btn btn-gold" onclick="leaveGame()" style="width:auto; padding:14px 40px; margin-top:24px;">
+              Back to Lobby
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sidebar">
+        <h3>Scores</h3>
+        <div id="scoreboard"></div>
+        <div id="admin-panel" class="admin-panel"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/boards.js"></script>
+  <script src="js/game.js"></script>
+
+  <script>
+    if (new URLSearchParams(window.location.search).get('host') === '1') {
+      document.getElementById('admin-panel').style.display = 'flex';
+    }
+  </script>
+
+</body>
+</html>

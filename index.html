@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeopardy!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+
+  <div id="screen-lobby" class="screen active">
+    <div class="lobby-card">
+
+      <h1>JEOPARDY</h1>
+      <p class="subtitle">Multiplayer Edition</p>
+
+      <div class="input-group">
+        <label>Your Name</label>
+        <input id="playerName" type="text" placeholder="e.g. Alex Trebek" maxlength="16"
+               onkeydown="if(event.key==='Enter') createRoom()">
+      </div>
+
+      <button class="btn btn-gold" onclick="createRoom()">+ Create Room</button>
+
+      <div class="divider">or join a room</div>
+
+      <div class="input-group">
+        <label>Room Code</label>
+        <input id="roomCodeInput" type="text" placeholder="ABCD" maxlength="4"
+               style="text-transform:uppercase; letter-spacing:6px; text-align:center; font-size:22px;"
+               onkeydown="if(event.key==='Enter') joinRoom()">
+      </div>
+
+      <button class="btn btn-outline" onclick="joinRoom()">→ Join Room</button>
+
+    </div>
+  </div>
+
+  <div id="screen-waiting" class="screen">
+    <div class="waiting-room">
+
+      <h2>Room Code</h2>
+      <div class="room-code-display" id="displayRoomCode">----</div>
+      <p class="room-hint">Share this code with your friends</p>
+
+      <p class="waiting-status" id="playerCount">0 PLAYERS IN LOBBY</p>
+      <div class="player-list" id="playerList"></div>
+
+      <div id="hostControls" style="display:none; flex-direction:column; gap:12px; width:100%; align-items:center;">
+
+        <div class="board-picker">
+          <div class="board-picker-label">Select Board</div>
+          <div class="board-options">
+            <button class="board-option" data-board="A">
+              <span class="board-opt-title">Board A</span>
+              <span class="board-opt-sub">$100 – $500</span>
+            </button>
+            <button class="board-option" data-board="B">
+              <span class="board-opt-title">Board B</span>
+              <span class="board-opt-sub">$200 – $1,000</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-gold" onclick="startGame()">▶ Start Game</button>
+      </div>
+
+      <button class="btn btn-outline" onclick="leaveRoom()" style="margin-top:16px;">
+        ← Leave Room
+      </button>
+
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/boards.js"></script>
+  <script src="js/lobby.js"></script>
+
+</body>
+</html>
