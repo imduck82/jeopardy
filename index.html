@@ -50,21 +50,10 @@
 
       <div id="hostControls" style="display:none; flex-direction:column; gap:12px; width:100%; align-items:center;">
 
-        <div class="board-picker">
-          <div class="board-picker-label">Select Board</div>
-          <div class="board-options">
-            <button class="board-option" data-board="A">
-              <span class="board-opt-title">Board A</span>
-              <span class="board-opt-sub">$100 – $500</span>
-            </button>
-            <button class="board-option" data-board="B">
-              <span class="board-opt-title">Board B</span>
-              <span class="board-opt-sub">$200 – $1,000</span>
-            </button>
-          </div>
-        </div>
+        <div id="boardPickerContainer" class="board-picker-container"></div>
 
         <button class="btn btn-gold" onclick="startGame()">▶ Start Game</button>
+        <button class="btn btn-danger" onclick="closeRoom()" style="margin-top:4px;">✕ Close Room</button>
       </div>
 
       <button class="btn btn-outline" onclick="leaveRoom()" style="margin-top:16px;">
