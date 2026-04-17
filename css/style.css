@@ -897,3 +897,45 @@ body::before {
 .gameover-entry.winner .go-rank { color: var(--gold); }
 .go-name  { flex: 1; font-weight: 700; font-size: 18px; }
 .go-score { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--gold); }
+
+/* Board complete interstitial */
+
+.board-complete-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 24px;
+}
+.board-complete-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(240,192,64,0.5);
+  text-align: center;
+}
+/* Placeholder for future animation — currently a subtle pulsing ring */
+.board-complete-anim-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(240,192,64,0.3);
+  box-shadow: 0 0 40px rgba(240,192,64,0.15);
+  animation: bc-pulse 2s ease-in-out infinite;
+}
+@keyframes bc-pulse {
+  0%,100% { box-shadow: 0 0 20px rgba(240,192,64,0.1); border-color: rgba(240,192,64,0.2); }
+  50%      { box-shadow: 0 0 60px rgba(240,192,64,0.4); border-color: rgba(240,192,64,0.7); }
+}
+
+/* Daily double wager hint */
+.dd-hint {
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.75;
+  margin-bottom: 8px;
+  text-align: center;
+}

@@ -28,10 +28,12 @@
 
         <div id="turn-banner" class="turn-banner"></div>
 
+        <!-- Board -->
         <div id="panel-board" class="game-panel active">
           <div id="board-grid"></div>
         </div>
 
+        <!-- Regular question -->
         <div id="panel-question" class="game-panel">
           <div class="question-card">
             <div class="question-meta">
@@ -41,13 +43,12 @@
             <div id="q-text" class="q-text"></div>
             <div id="answer-reveal" class="answer-reveal" style="display:none;"></div>
             <div id="buzzer-status" class="buzzer-status"></div>
-            <button id="player-buzzer" class="buzzer-btn" onclick="playerBuzz()" style="display:none;">
-              BUZZ IN
-            </button>
+            <button id="player-buzzer" class="buzzer-btn" onclick="playerBuzz()" style="display:none;">BUZZ IN</button>
             <div id="judging-info" class="judging-buzzer-name" style="display:none;"></div>
           </div>
         </div>
 
+        <!-- Daily Double -->
         <div id="panel-daily-double" class="game-panel">
           <div class="dd-card">
             <div class="dd-title">Daily Double!</div>
@@ -56,9 +57,9 @@
               Waiting for player to wager...
             </div>
             <div id="dd-wager-area" style="display:none;">
-              <p class="dd-hint">Place your wager</p>
+              <p id="dd-wager-hint" class="dd-hint">Place your wager</p>
               <div class="dd-wager-row">
-                <input id="dd-wager-input" type="number" min="1" class="dd-wager-input" placeholder="$">
+                <input id="dd-wager-input" type="number" min="5" class="dd-wager-input" placeholder="$">
                 <button class="btn btn-gold dd-wager-btn" onclick="submitWager()">Wager</button>
               </div>
             </div>
@@ -68,6 +69,19 @@
           </div>
         </div>
 
+        <!-- Board complete interstitial -->
+        <div id="panel-board-complete" class="game-panel">
+          <div class="board-complete-card">
+            <div id="board-complete-label" class="board-complete-title">Board Complete!</div>
+            <!-- Placeholder for future animation -->
+            <div class="board-complete-anim-placeholder"></div>
+            <button id="board-complete-next-btn" class="btn btn-gold" onclick="hostAdvanceFromBoardComplete()" style="display:none; margin-top:32px; padding:14px 48px;">
+              Continue →
+            </button>
+          </div>
+        </div>
+
+        <!-- Game over -->
         <div id="panel-gameover" class="game-panel">
           <div class="gameover-card">
             <div class="gameover-title">Game Over</div>
@@ -83,7 +97,7 @@
       <div class="sidebar">
         <h3>Scores</h3>
         <div id="scoreboard"></div>
-        <div id="admin-panel" class="admin-panel"></div>
+        <div id="admin-panel" class="admin-panel" style="display:none;"></div>
       </div>
 
     </div>
@@ -95,12 +109,6 @@
   <script src="js/firebase.js"></script>
   <script src="js/boards.js"></script>
   <script src="js/game.js"></script>
-
-  <script>
-    if (new URLSearchParams(window.location.search).get('host') === '1') {
-      document.getElementById('admin-panel').style.display = 'flex';
-    }
-  </script>
 
 </body>
 </html>
