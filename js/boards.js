@@ -14,19 +14,30 @@ console.log('[boards.js] BOARD_POINT_VALUES defined:', Object.keys(BOARD_POINT_V
 /**
  * Signs in anonymously so Firebase Security Rules allow reads.
  */
+let initAuthPromise = null;
+
 async function initAuth() {
   const auth = firebase.auth();
-  if (auth.currentUser) return;
-  console.log('[initAuth] Signing in anonymously...');
-  try {
-    const cred = await auth.signInAnonymously();
-    console.log('[initAuth] Signed in as', cred.user.uid);
-  } catch (err) {
-    console.error('[initAuth] Sign-in failed:', err);
-    throw err;
-  }
-}
 
+  if (auth.currentUser) return auth.currentUser;
+
+  if (initAuthPromise) return initAuthPromise;
+
+  console.log('[initAuth] Signing in anonymously...');
+
+  initAuthPromise = auth.signInAnonymously()
+    .then((cred) => {
+      console.log('[initAuth] Signed in as', cred.user.uid);
+      return cred.user;
+    })
+    .catch((err) => {
+      console.error('[initAuth] Sign-in failed:', err);
+      initAuthPromise = null; // allow retry
+      throw err;
+    });
+
+  return initAuthPromise;
+}
 /**
  * Fetches all available category names for a board from Firebase.
  * Returns an array of category name strings.
